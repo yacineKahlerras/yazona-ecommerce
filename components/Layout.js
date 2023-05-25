@@ -1,15 +1,15 @@
-import { signOut, useSession } from 'next-auth/react';
-import Head from 'next/head';
-import Link from 'next/link';
-import Cookies from 'js-cookie';
-import React, { useContext, useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
-import { Menu } from '@headlessui/react';
-import 'react-toastify/dist/ReactToastify.css';
-import { Store } from '../utils/Store';
-import DropdownLink from './DropdownLink';
-import { useRouter } from 'next/router';
-import { SearchIcon } from '@heroicons/react/outline';
+import { signOut, useSession } from "next-auth/react";
+import Head from "next/head";
+import Link from "next/link";
+import Cookies from "js-cookie";
+import React, { useContext, useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import { Menu } from "@headlessui/react";
+import "react-toastify/dist/ReactToastify.css";
+import { Store } from "../utils/Store";
+import DropdownLink from "./DropdownLink";
+import { useRouter } from "next/router";
+import { SearchIcon } from "@heroicons/react/outline";
 
 export default function Layout({ title, children }) {
   const { status, data: session } = useSession();
@@ -22,12 +22,12 @@ export default function Layout({ title, children }) {
   }, [cart.cartItems]);
 
   const logoutClickHandler = () => {
-    Cookies.remove('cart');
-    dispatch({ type: 'CART_RESET' });
-    signOut({ callbackUrl: '/login' });
+    Cookies.remove("cart");
+    dispatch({ type: "CART_RESET" });
+    signOut({ callbackUrl: "/login" });
   };
 
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const router = useRouter();
   const submitHandler = (e) => {
@@ -38,7 +38,7 @@ export default function Layout({ title, children }) {
   return (
     <>
       <Head>
-        <title>{title ? title + ' - Amazona' : 'Amazona'}</title>
+        <title>{title ? title + " - Amazona" : "Amazona"}</title>
         <meta name="description" content="Ecommerce Website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -81,8 +81,8 @@ export default function Layout({ title, children }) {
                 </a>
               </Link>
 
-              {status === 'loading' ? (
-                'Loading'
+              {status === "loading" ? (
+                "Loading"
               ) : session?.user ? (
                 <Menu as="div" className="relative inline-block">
                   <Menu.Button className="text-blue-600">
@@ -124,7 +124,7 @@ export default function Layout({ title, children }) {
                   </Menu.Items>
                 </Menu>
               ) : (
-                <Link href="/login">
+                <Link href="/api/auth/signin">
                   <a className="p-2">Login</a>
                 </Link>
               )}
