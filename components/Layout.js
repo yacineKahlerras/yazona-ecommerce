@@ -10,6 +10,7 @@ import { Store } from "../utils/Store";
 import DropdownLink from "./DropdownLink";
 import { useRouter } from "next/router";
 import { SearchIcon } from "@heroicons/react/outline";
+import Image from "next/image";
 
 export default function Layout({ title, children }) {
   const { status, data: session } = useSession();
@@ -38,7 +39,7 @@ export default function Layout({ title, children }) {
   return (
     <>
       <Head>
-        <title>{title ? title + " - Amazona" : "Amazona"}</title>
+        <title>{title ? title + " - Ecommerce" : "Ecommerce"}</title>
         <meta name="description" content="Ecommerce Website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -48,9 +49,12 @@ export default function Layout({ title, children }) {
       <div className="flex min-h-screen flex-col justify-between ">
         <header>
           <nav className="flex h-12 items-center px-4 justify-between shadow-md">
+            {/* logo */}
             <Link href="/">
               <a className="text-lg font-bold">amazona</a>
             </Link>
+
+            {/* search form */}
             <form
               onSubmit={submitHandler}
               className="mx-auto  hidden w-full justify-center md:flex"
@@ -69,7 +73,9 @@ export default function Layout({ title, children }) {
                 <SearchIcon className="h-5 w-5"></SearchIcon>
               </button>
             </form>
-            <div>
+
+            {/* side menu */}
+            <div className="flex gap-3 items-center">
               <Link href="/cart">
                 <a className="p-2">
                   Cart
@@ -81,12 +87,18 @@ export default function Layout({ title, children }) {
                 </a>
               </Link>
 
+              {/* profile menu */}
               {status === "loading" ? (
                 "Loading"
               ) : session?.user ? (
                 <Menu as="div" className="relative inline-block">
-                  <Menu.Button className="text-blue-600">
-                    {session.user.name}
+                  <Menu.Button className="text-blue-600 max-w-[2rem] max-h-[2rem] flex items-center">
+                    <Image
+                      src={session.user.image}
+                      width={"50px"}
+                      height={"50px"}
+                      className="rounded-full"
+                    />
                   </Menu.Button>
                   <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white  shadow-lg ">
                     <Menu.Item>
