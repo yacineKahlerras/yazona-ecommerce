@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Store } from "../utils/Store";
 import DropdownLink from "./DropdownLink";
 import { useRouter } from "next/router";
-import { SearchIcon } from "@heroicons/react/outline";
+import { SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 
 export default function Layout({ title, children }) {
@@ -59,7 +59,7 @@ export default function Layout({ title, children }) {
             {/* search form */}
             <form
               onSubmit={submitHandler}
-              className="mx-auto  hidden w-full justify-center md:flex"
+              className="mx-auto  hidden justify-center md:flex"
             >
               <input
                 onChange={(e) => setQuery(e.target.value)}
@@ -79,12 +79,18 @@ export default function Layout({ title, children }) {
             {/* side menu */}
             <div className="flex gap-3 items-center">
               <Link href="/cart">
-                <a className="p-2">
-                  Cart
-                  {cartItemsCount > 0 && (
-                    <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                <a className="p-2 flex items-center relative">
+                  <ShoppingCartIcon className="w-6 md:w-8"></ShoppingCartIcon>
+                  {cartItemsCount > 0 ? (
+                    <span
+                      className={`aspect-square w-4 md:w-5 rounded-full bg-red-600 text-[.55rem] md:text-[.6rem] 
+                      font-bold text-white grid place-items-center absolute top-[-.1rem] right-[-.1rem]
+                      md:top-[-.2rem] md:right-[-.2rem]`}
+                    >
                       {cartItemsCount}
                     </span>
+                  ) : (
+                    ""
                   )}
                 </a>
               </Link>
@@ -94,7 +100,7 @@ export default function Layout({ title, children }) {
                 "Loading"
               ) : session?.user ? (
                 <Menu as="div" className="relative inline-block">
-                  <Menu.Button className="text-blue-600 max-w-[2rem] max-h-[2rem] flex items-center">
+                  <Menu.Button className="text-blue-600 flex items-center max-w-[2rem] md:max-w-[2.6rem]">
                     <Image
                       src={session.user.image}
                       width={"50px"}
