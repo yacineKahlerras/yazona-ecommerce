@@ -48,10 +48,12 @@ export default function Layout({ title, children }) {
 
       <div className="flex min-h-screen flex-col justify-between ">
         <header>
-          <nav className="flex h-12 items-center px-4 justify-between shadow-md">
+          <nav className="flex h-12 items-center px-6 pt-5 mb-8 justify-between">
             {/* logo */}
             <Link href="/">
-              <a className="text-lg font-bold">amazona</a>
+              <a className="md:text-xl lg:text-2xl font-bold uppercase">
+                yasona
+              </a>
             </Link>
 
             {/* search form */}
@@ -66,11 +68,11 @@ export default function Layout({ title, children }) {
                 placeholder="Search products"
               />
               <button
-                className="rounded rounded-tl-none rounded-bl-none bg-amber-300 p-1 text-sm dark:text-black"
+                className="rounded rounded-tl-none rounded-bl-none bg-my-blue p-1 text-sm dark:text-black"
                 type="submit"
                 id="button-addon2"
               >
-                <SearchIcon className="h-5 w-5"></SearchIcon>
+                <SearchIcon className="h-5 w-5 text-white"></SearchIcon>
               </button>
             </form>
 

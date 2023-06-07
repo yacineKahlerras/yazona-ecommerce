@@ -11,7 +11,7 @@ body {
 }
 
 a {
-  @apply text-blue-600 hover:text-blue-800;
+  @apply text-my-blue hover:text-black;
 }
 
 * {
@@ -23,7 +23,7 @@ a {
 }
 
 .primary-button {
-  @apply rounded bg-amber-300 py-2 px-4 shadow outline-none hover:bg-amber-400  active:bg-amber-500;
+  @apply rounded bg-my-blue py-[.4em] px-[.5em] shadow outline-none hover:bg-my-light-blue  active:bg-my-light-blue;
 }
 .default-button {
   @apply rounded bg-gray-100 py-2  px-4 text-black shadow outline-none hover:bg-gray-200  active:bg-gray-300;
@@ -32,11 +32,11 @@ a {
 input,
 select,
 textarea {
-  @apply rounded border p-2  outline-none ring-indigo-300  focus:ring;
+  @apply rounded border p-2  outline-none ring-my-blue  focus:ring;
 }
 
 .dropdown-link {
-  @apply flex p-2 hover:bg-gray-200;
+  @apply flex p-2 hover:bg-my-grey;
 }
 
 .alert-error {
