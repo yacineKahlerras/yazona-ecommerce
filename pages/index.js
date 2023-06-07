@@ -9,7 +9,7 @@ import { Store } from "../utils/Store";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Image from "next/image";
 
-export default function Home({ products, featuredProducts }) {
+export default function Home({ products }) {
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
 
@@ -35,6 +35,7 @@ export default function Home({ products, featuredProducts }) {
         <img
           src="/images/banner.jpg"
           className="absolute object-cover object-center w-full h-full -z-10"
+          alt="banner"
         />
         <h1 className="max-w-sm md:max-w-3xl text-white font-semibold text-3xl md:text-5xl lg:text-6xl z-10 text-center px-5 md:px-0">
           level up your style with our summer collections

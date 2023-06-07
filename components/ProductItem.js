@@ -6,9 +6,6 @@ import { ShoppingCartIcon } from "@heroicons/react/outline";
 export default function ProductItem({ product, addToCartHandler }) {
   return (
     <div className="card relative">
-      {/* <p className="mb-2 absolute top-2 left-2 bg-my-blue text-white p-[.25em] px-[.75em] rounded-md text-xs">
-        {product.brand}
-      </p> */}
       <Link href={`/product/${product.slug}`}>
         <a>
           <img

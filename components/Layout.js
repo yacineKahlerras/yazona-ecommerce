@@ -106,6 +106,7 @@ export default function Layout({ title, children }) {
                       width={"50px"}
                       height={"50px"}
                       className="rounded-full"
+                      alt="user profile"
                     />
                   </Menu.Button>
                   <Menu.Items className="absolute z-10 right-0 top-14 w-56 origin-top-right bg-white shadow-lg rounded-lg overflow-hidden">
