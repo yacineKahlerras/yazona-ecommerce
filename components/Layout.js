@@ -39,7 +39,7 @@ export default function Layout({ title, children }) {
   return (
     <>
       <Head>
-        <title>{title ? title + " - Ecommerce" : "Ecommerce"}</title>
+        <title>{title ? title + " - Yazona" : "Yazona"}</title>
         <meta name="description" content="Ecommerce Website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -52,7 +52,7 @@ export default function Layout({ title, children }) {
             {/* logo */}
             <Link href="/">
               <a className="md:text-xl lg:text-2xl font-bold uppercase">
-                yasona
+                yazona
               </a>
             </Link>
 
@@ -108,7 +108,7 @@ export default function Layout({ title, children }) {
                       className="rounded-full"
                     />
                   </Menu.Button>
-                  <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white  shadow-lg ">
+                  <Menu.Items className="absolute z-10 right-0 top-14 w-56 origin-top-right bg-white shadow-lg rounded-lg overflow-hidden">
                     <Menu.Item>
                       <DropdownLink className="dropdown-link" href="/profile">
                         Profile

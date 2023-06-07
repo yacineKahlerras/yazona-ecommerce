@@ -6,9 +6,8 @@ import ProductItem from "../components/ProductItem";
 import Product from "../models/Product";
 import db from "../utils/db";
 import { Store } from "../utils/Store";
-import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import Link from "next/link";
+import Image from "next/image";
 
 export default function Home({ products, featuredProducts }) {
   const { state, dispatch } = useContext(Store);
@@ -29,17 +28,18 @@ export default function Home({ products, featuredProducts }) {
 
   return (
     <Layout title="Home Page">
-      <Carousel showThumbs={false} autoPlay>
-        {featuredProducts.map((product) => (
-          <div key={product._id}>
-            <Link href={`/product/${product.slug}`} passHref>
-              <a className="flex">
-                <img src={product.banner} alt={product.name} />
-              </a>
-            </Link>
-          </div>
-        ))}
-      </Carousel>
+      <div
+        className={`mx-auto relative min-h-[20rem] rounded-lg overflow-hidden isolate grid place-items-center`}
+      >
+        <div className="absolute top-0 left-0 w-full h-full bg-black z-0 opacity-50"></div>
+        <img
+          src="/images/banner.jpg"
+          className="absolute object-cover object-center w-full h-full -z-10"
+        />
+        <h1 className="max-w-sm md:max-w-3xl text-white font-semibold text-3xl md:text-5xl lg:text-6xl z-10 text-center px-5 md:px-0">
+          level up your style with our summer collections
+        </h1>
+      </div>
       <h2 className="h2 text-lg md:text-2xl my-4 text-my-blue font-semibold">
         Latest Products
       </h2>
