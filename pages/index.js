@@ -52,7 +52,7 @@ export default function Home({ products }) {
       </div>
 
       {/* brands */}
-      <h2 className="h2 text-lg md:text-2xl my-4 text-my-blue font-semibold text-center uppercase">
+      <h2 className="h2 text-lg md:text-2xl my-4 text-my-blue font-semibold text-center uppercase ">
         Brands
       </h2>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(30px,70px))] md:grid-cols-[repeat(auto-fit,minmax(50px,100px))] items-center gap-5 justify-center justify-items-center mb-14">
