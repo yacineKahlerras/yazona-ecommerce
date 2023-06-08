@@ -7,6 +7,18 @@ import Product from "../models/Product";
 import db from "../utils/db";
 import { Store } from "../utils/Store";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Image from "next/image";
+
+const brandImgs = [
+  "calvinKlein",
+  "emporio",
+  "guessJeans",
+  "hugoBoss",
+  "lacoste",
+  "nike",
+  "pepeJeans",
+  "prada",
+];
 
 export default function Home({ products }) {
   const { state, dispatch } = useContext(Store);
@@ -27,9 +39,8 @@ export default function Home({ products }) {
 
   return (
     <Layout title="Home Page">
-      <div
-        className={`mx-auto relative min-h-[20rem] rounded-lg overflow-hidden isolate grid place-items-center`}
-      >
+      {/* banner */}
+      <div className="mx-auto relative min-h-[20rem] rounded-lg overflow-hidden isolate grid place-items-center mb-14">
         <div className="absolute top-0 left-0 w-full h-full bg-black z-0 opacity-50"></div>
         <img
           src="/images/banner.jpg"
@@ -40,7 +51,26 @@ export default function Home({ products }) {
           level up your style with our summer collections
         </h1>
       </div>
-      <h2 className="h2 text-lg md:text-2xl my-4 text-my-blue font-semibold">
+
+      {/* brands */}
+      <h2 className="h2 text-lg md:text-2xl my-4 text-my-blue font-semibold text-center uppercase">
+        Brands
+      </h2>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(30px,70px))] md:grid-cols-[repeat(auto-fit,minmax(50px,100px))] items-center gap-5 justify-center justify-items-center mb-14">
+        {brandImgs.map((img, idx) => {
+          return (
+            <img
+              src={`/images/brands/${img}.png`}
+              alt={`${img} brand`}
+              key={img}
+              className="w-auto h-auto max-h-14"
+            />
+          );
+        })}
+      </div>
+
+      {/* products */}
+      <h2 className="h2 text-lg md:text-2xl my-4 text-my-blue font-semibold text-center uppercase">
         Latest Products
       </h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
