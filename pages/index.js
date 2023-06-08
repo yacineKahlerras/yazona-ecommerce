@@ -7,7 +7,6 @@ import Product from "../models/Product";
 import db from "../utils/db";
 import { Store } from "../utils/Store";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import Image from "next/image";
 
 const brandImgs = [
   "calvinKlein",
