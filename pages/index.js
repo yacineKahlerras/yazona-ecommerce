@@ -7,6 +7,7 @@ import Product from "../models/Product";
 import db from "../utils/db";
 import { Store } from "../utils/Store";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Image from "next/image";
 
 const brandImgs = [
   "calvinKlein",
@@ -56,9 +57,12 @@ export default function Home({ products }) {
         Brands
       </h2>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(30px,70px))] md:grid-cols-[repeat(auto-fit,minmax(50px,100px))] items-center gap-5 justify-center justify-items-center mb-14">
-        {brandImgs.map((img, idx) => {
+        {brandImgs.map((img) => {
           return (
-            <img
+            <Image
+              width="100%"
+              height="100%"
+              objectFit="contain"
               src={`/images/brands/${img}.png`}
               alt={`${img} brand`}
               key={img}
