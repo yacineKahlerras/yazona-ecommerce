@@ -76,7 +76,7 @@ export default function Home({ products }) {
       <h2 className="h2 text-lg md:text-2xl my-4 text-my-blue font-semibold text-center uppercase">
         Latest Products
       </h2>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,300px))] gap-5 justify-center">
         {products.map((product) => (
           <ProductItem
             product={product}
