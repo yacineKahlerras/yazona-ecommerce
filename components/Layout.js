@@ -50,10 +50,11 @@ export default function Layout({ title, children }) {
         <header>
           <nav className="flex h-12 items-center px-6 pt-5 mb-8 justify-between">
             {/* logo */}
-            <Link href="/">
-              <a className="md:text-xl lg:text-2xl font-bold uppercase">
-                yazona
-              </a>
+            <Link
+              href="/"
+              className="md:text-xl lg:text-2xl font-bold uppercase"
+            >
+              yazona
             </Link>
 
             {/* search form */}
@@ -78,21 +79,19 @@ export default function Layout({ title, children }) {
 
             {/* side menu */}
             <div className="flex gap-3 items-center">
-              <Link href="/cart">
-                <a className="p-2 flex items-center relative">
-                  <ShoppingCartIcon className="w-6 md:w-8"></ShoppingCartIcon>
-                  {cartItemsCount > 0 ? (
-                    <span
-                      className={`aspect-square w-4 md:w-5 rounded-full bg-red-600 text-[.55rem] md:text-[.6rem] 
+              <Link href="/cart" className="p-2 flex items-center relative">
+                <ShoppingCartIcon className="w-6 md:w-8"></ShoppingCartIcon>
+                {cartItemsCount > 0 ? (
+                  <span
+                    className={`aspect-square w-4 md:w-5 rounded-full bg-red-600 text-[.55rem] md:text-[.6rem] 
                       font-bold text-white grid place-items-center absolute top-[-.1rem] right-[-.1rem]
                       md:top-[-.2rem] md:right-[-.2rem]`}
-                    >
-                      {cartItemsCount}
-                    </span>
-                  ) : (
-                    ""
-                  )}
-                </a>
+                  >
+                    {cartItemsCount}
+                  </span>
+                ) : (
+                  ""
+                )}
               </Link>
 
               {/* profile menu */}
@@ -103,8 +102,9 @@ export default function Layout({ title, children }) {
                   <Menu.Button className="text-blue-600 flex items-center max-w-[2rem] md:max-w-[2.6rem]">
                     <Image
                       src={session.user.image}
-                      width={"50px"}
-                      height={"50px"}
+                      width="50"
+                      height="50"
+                      objectFit="contain"
                       className="rounded-full"
                       alt="user profile"
                     />
@@ -145,8 +145,8 @@ export default function Layout({ title, children }) {
                   </Menu.Items>
                 </Menu>
               ) : (
-                <Link href="/api/auth/signin">
-                  <a className="p-2">Login</a>
+                <Link href="/api/auth/signin" className="p-2">
+                  Login
                 </Link>
               )}
             </div>
