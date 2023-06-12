@@ -8,6 +8,7 @@ import Layout from "../../components/Layout";
 import Product from "../../models/Product";
 import db from "../../utils/db";
 import { Store } from "../../utils/Store";
+import { ArrowLeftIcon } from "@heroicons/react/outline";
 
 export default function ProductScreen(props) {
   const { product } = props;
@@ -32,8 +33,13 @@ export default function ProductScreen(props) {
 
   return (
     <Layout title={product.name}>
-      <div className="py-2">
-        <Link href="/">back to products</Link>
+      <div className="flex justify-start mb-6">
+        <Link
+          href="/"
+          className="bg-my-blue text-white hover:text-blue-300 p-2 px-3 flex items-center gap-2 rounded-md ease-in-out duration-300"
+        >
+          <ArrowLeftIcon className="w-4 md:w-5"></ArrowLeftIcon>
+        </Link>
       </div>
       <div className="grid md:grid-cols-4 md:gap-3">
         <div className="md:col-span-2">
@@ -43,6 +49,7 @@ export default function ProductScreen(props) {
             width={640}
             height={640}
             layout="responsive"
+            className="rounded-md"
           ></Image>
         </div>
         <div>
