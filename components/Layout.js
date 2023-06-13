@@ -109,12 +109,7 @@ export default function Layout({ title, children }) {
                       alt="user profile"
                     />
                   </Menu.Button>
-                  <Menu.Items className="absolute z-10 right-0 top-14 w-56 origin-top-right bg-white shadow-lg rounded-lg overflow-hidden">
-                    <Menu.Item>
-                      <DropdownLink className="dropdown-link" href="/profile">
-                        Profile
-                      </DropdownLink>
-                    </Menu.Item>
+                  <Menu.Items className="absolute z-10 right-0 top-14 w-56 origin-top-right bg-my-blue text-white shadow-lg rounded-lg overflow-hidden">
                     <Menu.Item>
                       <DropdownLink
                         className="dropdown-link"

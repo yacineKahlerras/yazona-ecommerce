@@ -38,7 +38,7 @@ textarea {
 }
 
 .dropdown-link {
-  @apply flex p-2 hover:bg-my-grey;
+  @apply flex p-2 hover:text-blue-300 text-white;
 }
 
 .alert-error {

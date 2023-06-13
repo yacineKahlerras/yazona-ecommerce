@@ -1,14 +1,14 @@
-import axios from 'axios';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import Cookies from 'js-cookie';
-import React, { useContext, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import CheckoutWizard from '../components/CheckoutWizard';
-import Layout from '../components/Layout';
-import { getError } from '../utils/error';
-import { Store } from '../utils/Store';
+import axios from "axios";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import CheckoutWizard from "../components/CheckoutWizard";
+import Layout from "../components/Layout";
+import { getError } from "../utils/error";
+import { Store } from "../utils/Store";
 
 export default function PlaceOrderScreen() {
   const { state, dispatch } = useContext(Store);
@@ -28,7 +28,7 @@ export default function PlaceOrderScreen() {
   const router = useRouter();
   useEffect(() => {
     if (!paymentMethod) {
-      router.push('/payment');
+      router.push("/payment");
     }
   }, [paymentMethod, router]);
 
@@ -37,7 +37,7 @@ export default function PlaceOrderScreen() {
   const placeOrderHandler = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post('/api/orders', {
+      const { data } = await axios.post("/api/orders", {
         orderItems: cartItems,
         shippingAddress,
         paymentMethod,
@@ -47,9 +47,9 @@ export default function PlaceOrderScreen() {
         totalPrice,
       });
       setLoading(false);
-      dispatch({ type: 'CART_CLEAR_ITEMS' });
+      dispatch({ type: "CART_CLEAR_ITEMS" });
       Cookies.set(
-        'cart',
+        "cart",
         JSON.stringify({
           ...cart,
           cartItems: [],
@@ -76,8 +76,8 @@ export default function PlaceOrderScreen() {
             <div className="card  p-5">
               <h2 className="mb-2 text-lg">Shipping Address</h2>
               <div>
-                {shippingAddress.fullName}, {shippingAddress.address},{' '}
-                {shippingAddress.city}, {shippingAddress.postalCode},{' '}
+                {shippingAddress.fullName}, {shippingAddress.address},{" "}
+                {shippingAddress.city}, {shippingAddress.postalCode},{" "}
                 {shippingAddress.country}
               </div>
               <div>
@@ -106,17 +106,18 @@ export default function PlaceOrderScreen() {
                   {cartItems.map((item) => (
                     <tr key={item._id} className="border-b">
                       <td>
-                        <Link href={`/product/${item.slug}`}>
-                          <a className="flex items-center">
-                            <Image
-                              src={item.image}
-                              alt={item.name}
-                              width={50}
-                              height={50}
-                            ></Image>
-                            &nbsp;
-                            {item.name}
-                          </a>
+                        <Link
+                          href={`/product/${item.slug}`}
+                          className="flex items-center"
+                        >
+                          <Image
+                            src={item.image}
+                            alt={item.name}
+                            width={50}
+                            height={50}
+                          ></Image>
+                          &nbsp;
+                          {item.name}
                         </Link>
                       </td>
                       <td className=" p-5 text-right">{item.quantity}</td>
@@ -167,7 +168,7 @@ export default function PlaceOrderScreen() {
                     onClick={placeOrderHandler}
                     className="primary-button w-full"
                   >
-                    {loading ? 'Loading...' : 'Place Order'}
+                    {loading ? "Loading..." : "Place Order"}
                   </button>
                 </li>
               </ul>

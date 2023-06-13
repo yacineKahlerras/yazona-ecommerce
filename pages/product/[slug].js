@@ -9,6 +9,7 @@ import Product from "../../models/Product";
 import db from "../../utils/db";
 import { Store } from "../../utils/Store";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
+import { StarIcon } from "@heroicons/react/solid";
 
 export default function ProductScreen(props) {
   const { product } = props;
@@ -31,56 +32,73 @@ export default function ProductScreen(props) {
     router.push("/cart");
   };
 
+  const star = <StarIcon className="w-5 text-yellow-400"></StarIcon>;
+
+  const productInfo = [
+    ["Category : ", product.category],
+    ["Brand : ", product.brand],
+    ["Description : ", product.description],
+    [product.rating, `(${product.numReviews} reviews)`],
+  ];
+
   return (
     <Layout title={product.name}>
-      <div className="flex justify-start mb-6">
-        <Link
-          href="/"
-          className="bg-my-blue text-white hover:text-blue-300 p-2 px-3 flex items-center gap-2 rounded-md ease-in-out duration-300"
-        >
-          <ArrowLeftIcon className="w-4 md:w-5"></ArrowLeftIcon>
-        </Link>
-      </div>
-      <div className="grid md:grid-cols-4 md:gap-3">
-        <div className="md:col-span-2">
-          <Image
-            src={product.image}
-            alt={product.name}
-            width={640}
-            height={640}
-            layout="responsive"
-            className="rounded-md"
-          ></Image>
+      <div className="max-w-md md:max-w-4xl mx-auto">
+        <div className="flex justify-start mb-6">
+          <Link
+            href="/"
+            className="bg-my-blue text-white hover:text-blue-300 p-2 px-3 flex items-center gap-2 rounded-md ease-in-out duration-300"
+          >
+            <ArrowLeftIcon className="w-4 md:w-5"></ArrowLeftIcon>
+          </Link>
         </div>
-        <div>
-          <ul>
-            <li>
-              <h1 className="text-lg">{product.name}</h1>
-            </li>
-            <li>Category: {product.category}</li>
-            <li>Brand: {product.brand}</li>
-            <li>
-              {product.rating} of {product.numReviews} reviews
-            </li>
-            <li>Description: {product.description}</li>
-          </ul>
-        </div>
-        <div>
-          <div className="card p-5">
-            <div className="mb-2 flex justify-between">
-              <div>Price</div>
-              <div>${product.price}</div>
+        <div className="grid md:grid-cols-3 md:gap-3">
+          <div className="md:col-span-2 mb-2 md:mb-0">
+            <Image
+              src={product.image}
+              alt={product.name}
+              width={640}
+              height={640}
+              className="rounded-md"
+            ></Image>
+          </div>
+          <div className="pl-2 md:pl-0 mb-5 md:mb-0">
+            <h1 className="text-xl md:text-3xl font-semibold mb-2 md:mb-5">
+              {product.name}
+            </h1>
+            <ul className="mb-10">
+              {productInfo.map((inf, idx) => {
+                return (
+                  <li key={inf[1]} className="flex gap-2 items-start">
+                    <span className="flex items-center whitespace-nowrap font-semibold text-my-blue">
+                      {inf[0]} {idx == 3 ? star : ""}
+                    </span>
+                    {inf[1]}
+                  </li>
+                );
+              })}
+            </ul>
+
+            <div>
+              <div className="card p-5 max-w-xs mx-auto">
+                <div className="mb-2 flex justify-between">
+                  <div>Price</div>
+                  <div>${product.price}</div>
+                </div>
+                <div className="mb-2 flex justify-between">
+                  <div>Status</div>
+                  <div>
+                    {product.countInStock > 0 ? "In stock" : "Unavailable"}
+                  </div>
+                </div>
+                <button
+                  className="primary-button w-full"
+                  onClick={addToCartHandler}
+                >
+                  Add to cart
+                </button>
+              </div>
             </div>
-            <div className="mb-2 flex justify-between">
-              <div>Status</div>
-              <div>{product.countInStock > 0 ? "In stock" : "Unavailable"}</div>
-            </div>
-            <button
-              className="primary-button w-full"
-              onClick={addToCartHandler}
-            >
-              Add to cart
-            </button>
           </div>
         </div>
       </div>
