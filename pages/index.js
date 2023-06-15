@@ -62,7 +62,6 @@ export default function Home({ products }) {
             <Image
               width="100"
               height="100"
-              objectFit="contain"
               src={`/images/brands/${img}.png`}
               alt={`${img} brand`}
               key={img}
