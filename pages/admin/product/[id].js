@@ -1,37 +1,37 @@
-import axios from 'axios';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useEffect, useReducer } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import Layout from '../../../components/Layout';
-import { getError } from '../../../utils/error';
+import axios from "axios";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useEffect, useReducer } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import Layout from "../../../components/Layout";
+import { getError } from "../../../utils/error";
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'FETCH_REQUEST':
-      return { ...state, loading: true, error: '' };
-    case 'FETCH_SUCCESS':
-      return { ...state, loading: false, error: '' };
-    case 'FETCH_FAIL':
+    case "FETCH_REQUEST":
+      return { ...state, loading: true, error: "" };
+    case "FETCH_SUCCESS":
+      return { ...state, loading: false, error: "" };
+    case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
 
-    case 'UPDATE_REQUEST':
-      return { ...state, loadingUpdate: true, errorUpdate: '' };
-    case 'UPDATE_SUCCESS':
-      return { ...state, loadingUpdate: false, errorUpdate: '' };
-    case 'UPDATE_FAIL':
+    case "UPDATE_REQUEST":
+      return { ...state, loadingUpdate: true, errorUpdate: "" };
+    case "UPDATE_SUCCESS":
+      return { ...state, loadingUpdate: false, errorUpdate: "" };
+    case "UPDATE_FAIL":
       return { ...state, loadingUpdate: false, errorUpdate: action.payload };
 
-    case 'UPLOAD_REQUEST':
-      return { ...state, loadingUpload: true, errorUpload: '' };
-    case 'UPLOAD_SUCCESS':
+    case "UPLOAD_REQUEST":
+      return { ...state, loadingUpload: true, errorUpload: "" };
+    case "UPLOAD_SUCCESS":
       return {
         ...state,
         loadingUpload: false,
-        errorUpload: '',
+        errorUpload: "",
       };
-    case 'UPLOAD_FAIL':
+    case "UPLOAD_FAIL":
       return { ...state, loadingUpload: false, errorUpload: action.payload };
 
     default:
@@ -44,7 +44,7 @@ export default function AdminProductEditScreen() {
   const [{ loading, error, loadingUpdate, loadingUpload }, dispatch] =
     useReducer(reducer, {
       loading: true,
-      error: '',
+      error: "",
     });
 
   const {
@@ -57,19 +57,19 @@ export default function AdminProductEditScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        dispatch({ type: 'FETCH_REQUEST' });
+        dispatch({ type: "FETCH_REQUEST" });
         const { data } = await axios.get(`/api/admin/products/${productId}`);
-        dispatch({ type: 'FETCH_SUCCESS' });
-        setValue('name', data.name);
-        setValue('slug', data.slug);
-        setValue('price', data.price);
-        setValue('image', data.image);
-        setValue('category', data.category);
-        setValue('brand', data.brand);
-        setValue('countInStock', data.countInStock);
-        setValue('description', data.description);
+        dispatch({ type: "FETCH_SUCCESS" });
+        setValue("name", data.name);
+        setValue("slug", data.slug);
+        setValue("price", data.price);
+        setValue("image", data.image);
+        setValue("category", data.category);
+        setValue("brand", data.brand);
+        setValue("countInStock", data.countInStock);
+        setValue("description", data.description);
       } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
+        dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
     };
 
@@ -78,26 +78,26 @@ export default function AdminProductEditScreen() {
 
   const router = useRouter();
 
-  const uploadHandler = async (e, imageField = 'image') => {
+  const uploadHandler = async (e, imageField = "image") => {
     const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`;
     try {
-      dispatch({ type: 'UPLOAD_REQUEST' });
+      dispatch({ type: "UPLOAD_REQUEST" });
       const {
         data: { signature, timestamp },
-      } = await axios('/api/admin/cloudinary-sign');
+      } = await axios("/api/admin/cloudinary-sign");
 
       const file = e.target.files[0];
       const formData = new FormData();
-      formData.append('file', file);
-      formData.append('signature', signature);
-      formData.append('timestamp', timestamp);
-      formData.append('api_key', process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
+      formData.append("file", file);
+      formData.append("signature", signature);
+      formData.append("timestamp", timestamp);
+      formData.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
       const { data } = await axios.post(url, formData);
-      dispatch({ type: 'UPLOAD_SUCCESS' });
+      dispatch({ type: "UPLOAD_SUCCESS" });
       setValue(imageField, data.secure_url);
-      toast.success('File uploaded successfully');
+      toast.success("File uploaded successfully");
     } catch (err) {
-      dispatch({ type: 'UPLOAD_FAIL', payload: getError(err) });
+      dispatch({ type: "UPLOAD_FAIL", payload: getError(err) });
       toast.error(getError(err));
     }
   };
@@ -113,7 +113,7 @@ export default function AdminProductEditScreen() {
     description,
   }) => {
     try {
-      dispatch({ type: 'UPDATE_REQUEST' });
+      dispatch({ type: "UPDATE_REQUEST" });
       await axios.put(`/api/admin/products/${productId}`, {
         name,
         slug,
@@ -124,11 +124,11 @@ export default function AdminProductEditScreen() {
         countInStock,
         description,
       });
-      dispatch({ type: 'UPDATE_SUCCESS' });
-      toast.success('Product updated successfully');
-      router.push('/admin/products');
+      dispatch({ type: "UPDATE_SUCCESS" });
+      toast.success("Product updated successfully");
+      router.push("/admin/products");
     } catch (err) {
-      dispatch({ type: 'UPDATE_FAIL', payload: getError(err) });
+      dispatch({ type: "UPDATE_FAIL", payload: getError(err) });
       toast.error(getError(err));
     }
   };
@@ -145,8 +145,8 @@ export default function AdminProductEditScreen() {
               <Link href="/admin/orders">Orders</Link>
             </li>
             <li>
-              <Link href="/admin/products">
-                <a className="font-bold">Products</a>
+              <Link href="/admin/products" className="font-bold">
+                Products
               </Link>
             </li>
             <li>
@@ -172,8 +172,8 @@ export default function AdminProductEditScreen() {
                   className="w-full"
                   id="name"
                   autoFocus
-                  {...register('name', {
-                    required: 'Please enter name',
+                  {...register("name", {
+                    required: "Please enter name",
                   })}
                 />
                 {errors.name && (
@@ -186,8 +186,8 @@ export default function AdminProductEditScreen() {
                   type="text"
                   className="w-full"
                   id="slug"
-                  {...register('slug', {
-                    required: 'Please enter slug',
+                  {...register("slug", {
+                    required: "Please enter slug",
                   })}
                 />
                 {errors.slug && (
@@ -200,8 +200,8 @@ export default function AdminProductEditScreen() {
                   type="text"
                   className="w-full"
                   id="price"
-                  {...register('price', {
-                    required: 'Please enter price',
+                  {...register("price", {
+                    required: "Please enter price",
                   })}
                 />
                 {errors.price && (
@@ -214,8 +214,8 @@ export default function AdminProductEditScreen() {
                   type="text"
                   className="w-full"
                   id="image"
-                  {...register('image', {
-                    required: 'Please enter image',
+                  {...register("image", {
+                    required: "Please enter image",
                   })}
                 />
                 {errors.image && (
@@ -239,8 +239,8 @@ export default function AdminProductEditScreen() {
                   type="text"
                   className="w-full"
                   id="category"
-                  {...register('category', {
-                    required: 'Please enter category',
+                  {...register("category", {
+                    required: "Please enter category",
                   })}
                 />
                 {errors.category && (
@@ -253,8 +253,8 @@ export default function AdminProductEditScreen() {
                   type="text"
                   className="w-full"
                   id="brand"
-                  {...register('brand', {
-                    required: 'Please enter brand',
+                  {...register("brand", {
+                    required: "Please enter brand",
                   })}
                 />
                 {errors.brand && (
@@ -267,8 +267,8 @@ export default function AdminProductEditScreen() {
                   type="text"
                   className="w-full"
                   id="countInStock"
-                  {...register('countInStock', {
-                    required: 'Please enter countInStock',
+                  {...register("countInStock", {
+                    required: "Please enter countInStock",
                   })}
                 />
                 {errors.countInStock && (
@@ -283,8 +283,8 @@ export default function AdminProductEditScreen() {
                   type="text"
                   className="w-full"
                   id="description"
-                  {...register('description', {
-                    required: 'Please enter description',
+                  {...register("description", {
+                    required: "Please enter description",
                   })}
                 />
                 {errors.description && (
@@ -295,7 +295,7 @@ export default function AdminProductEditScreen() {
               </div>
               <div className="mb-4">
                 <button disabled={loadingUpdate} className="primary-button">
-                  {loadingUpdate ? 'Loading' : 'Update'}
+                  {loadingUpdate ? "Loading" : "Update"}
                 </button>
               </div>
               <div className="mb-4">

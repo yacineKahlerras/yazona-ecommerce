@@ -1,5 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import db from "../../../utils/db";
+import User from "../../../models/User";
 
 export default NextAuth({
   session: {
@@ -13,8 +15,20 @@ export default NextAuth({
     },
     async session({ session, token }) {
       if (token?._id) session.user._id = token._id;
-      // if (token?.isAdmin) session.user.isAdmin = token.isAdmin;
-      session.user.isAdmin = true;
+
+      await db.connect();
+      const dbUser = await User.findOne({ email: token.email });
+      if (dbUser) session.user = dbUser;
+      else {
+        const newUser = new User({
+          name: session.user.name,
+          email: session.user.email,
+          image: token.picture,
+          isAdmin: session.user.isAdmin,
+        });
+        await newUser.save();
+      }
+      await db.disconnect();
       return session;
     },
   },
