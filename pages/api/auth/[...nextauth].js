@@ -18,7 +18,7 @@ export default NextAuth({
 
       await db.connect();
       const dbUser = await User.findOne({ email: token.email });
-      if (dbUser) session.user = dbUser;
+      if (dbUser) session.user.isAdmin = dbUser.isAdmin;
       else {
         const newUser = new User({
           name: session.user.name,
