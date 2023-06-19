@@ -14,7 +14,7 @@ const handler = async (req, res) => {
   await db.connect();
   const newOrder = new Order({
     ...req.body,
-    user: user.email,
+    user: user._id,
   });
 
   const order = await newOrder.save();
