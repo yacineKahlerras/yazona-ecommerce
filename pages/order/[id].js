@@ -43,6 +43,7 @@ function reducer(state, action) {
       state;
   }
 }
+
 function OrderScreen() {
   const { data: session } = useSession();
   // order/:id
@@ -51,6 +52,7 @@ function OrderScreen() {
   const { query } = useRouter();
   const orderId = query.id;
 
+  // order state vars
   const [
     {
       loading,
@@ -67,6 +69,8 @@ function OrderScreen() {
     order: {},
     error: "",
   });
+
+  // listen to changes of the order/payment vars
   useEffect(() => {
     const fetchOrder = async () => {
       try {
@@ -77,6 +81,7 @@ function OrderScreen() {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
     };
+
     if (
       !order._id ||
       successPay ||
@@ -84,12 +89,8 @@ function OrderScreen() {
       (order._id && order._id !== orderId)
     ) {
       fetchOrder();
-      if (successPay) {
-        dispatch({ type: "PAY_RESET" });
-      }
-      if (successDeliver) {
-        dispatch({ type: "DELIVER_RESET" });
-      }
+      if (successPay) dispatch({ type: "PAY_RESET" });
+      if (successDeliver) dispatch({ type: "DELIVER_RESET" });
     } else {
       const loadPaypalScript = async () => {
         const { data: clientId } = await axios.get("/api/keys/paypal");
@@ -105,6 +106,7 @@ function OrderScreen() {
       loadPaypalScript();
     }
   }, [order, orderId, paypalDispatch, successDeliver, successPay]);
+
   const {
     shippingAddress,
     paymentMethod,
@@ -119,6 +121,7 @@ function OrderScreen() {
     deliveredAt,
   } = order;
 
+  // creating paypal order
   function createOrder(data, actions) {
     return actions.order
       .create({
@@ -133,6 +136,7 @@ function OrderScreen() {
       });
   }
 
+  // paypal order approved
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {
@@ -149,10 +153,13 @@ function OrderScreen() {
       }
     });
   }
+
+  // paypal error
   function onError(err) {
     toast.error(getError(err));
   }
 
+  // deliver order as admin
   async function deliverOrderHandler() {
     try {
       dispatch({ type: "DELIVER_REQUEST" });
@@ -177,7 +184,9 @@ function OrderScreen() {
         <div className="alert-error">{error}</div>
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">
+          {/* info */}
           <div className="overflow-x-auto md:col-span-3">
+            {/* shpping */}
             <div className="card  p-5">
               <h2 className="mb-2 text-lg">Shipping Address</h2>
               <div>
@@ -192,6 +201,7 @@ function OrderScreen() {
               )}
             </div>
 
+            {/* payment */}
             <div className="card p-5">
               <h2 className="mb-2 text-lg">Payment Method</h2>
               <div>{paymentMethod}</div>
@@ -202,6 +212,7 @@ function OrderScreen() {
               )}
             </div>
 
+            {/* orders */}
             <div className="card overflow-x-auto p-5">
               <h2 className="mb-2 text-lg">Order Items</h2>
               <table className="min-w-full">
@@ -242,6 +253,8 @@ function OrderScreen() {
               </table>
             </div>
           </div>
+
+          {/* summarry and paypal buttons */}
           <div>
             <div className="card  p-5">
               <h2 className="mb-2 text-lg">Order Summary</h2>
