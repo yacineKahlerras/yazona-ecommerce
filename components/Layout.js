@@ -1,4 +1,4 @@
-import { signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import Cookies from "js-cookie";
@@ -25,7 +25,7 @@ export default function Layout({ title, children }) {
   const logoutClickHandler = () => {
     Cookies.remove("cart");
     dispatch({ type: "CART_RESET" });
-    signOut({ callbackUrl: "/login" });
+    signOut({ callbackUrl: "/" });
   };
 
   const [query, setQuery] = useState("");
@@ -140,7 +140,14 @@ export default function Layout({ title, children }) {
                   </Menu.Items>
                 </Menu>
               ) : (
-                <Link href="/api/auth/signin" className="p-2">
+                <Link
+                  type="button"
+                  href=""
+                  onClick={() => {
+                    signIn("google", { callbackUrl: "/" });
+                  }}
+                  className="p-2"
+                >
                   Login
                 </Link>
               )}
