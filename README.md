@@ -9,7 +9,7 @@
 
 ## Overview
 
-This is an e-commerce website equipped with search filters and admin functionality. It is developed using MongoDB and Tailwind CSS. The website provides features such as user login, purchasing clothing items, and displaying product information. Furthermore, it incorporates MongoDB and NextAuth for seamless authentication and data storage capabilities.
+This is an e-commerce website equipped with search filters and admin functionality. It is developed using Next.js, MongoDB and Tailwind CSS. The website provides features such as user login, purchasing clothing items, and displaying product information. Furthermore, it incorporates MongoDB and NextAuth for seamless authentication and data storage capabilities.
 
 ### Links
 
